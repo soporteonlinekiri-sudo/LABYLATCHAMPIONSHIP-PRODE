@@ -168,6 +168,11 @@
     .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
     @media(max-width:380px){.team-bars{flex-direction:column}.vs-row{gap:.6rem}}
+
+    .quick-btns{display:flex;gap:.6rem;margin:.2rem 0 .6rem}
+    .qbtn{flex:1;background:var(--card2);border:1.5px solid var(--border2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;padding:.6rem .5rem;border-radius:8px;cursor:pointer;transition:border-color .15s,color .15s}
+    .qbtn:hover{border-color:var(--yellow);color:var(--yellow)}
+    .qbtn:active{transform:scale(.95)}
   </style>
 </head>
 <body>
@@ -257,6 +262,10 @@
       </div>
     </div>
     <div id="wtag" class="wtag e a a3">Ajustá el marcador ☝️</div>
+    <div class="quick-btns a a3">
+      <button class="qbtn" onclick="setEmpate()">🤝 Empate</button>
+      <button class="qbtn" onclick="resetScore()">↺ Resetear</button>
+    </div>
     <div class="spacer"></div>
     <button class="btn btn-y btn-w a a4" onclick="goTo('goleador')">SIGUIENTE →</button>
   </div>
@@ -399,7 +408,24 @@ function changeScore(team, d) {
   const el = document.getElementById(eid);
   el.textContent = S[key];
   el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+  function setEmpate() {
+  const max = Math.max(S.scoreB, S.scoreT, 1);
+  S.scoreB = max; S.scoreT = max;
+  document.getElementById('snum-b').textContent = max;
+  document.getElementById('snum-t').textContent = max;
+  ['snum-b','snum-t'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+  });
   updateWinner();
+}
+function resetScore() {
+  S.scoreB = 0; S.scoreT = 0;
+  document.getElementById('snum-b').textContent = '0';
+  document.getElementById('snum-t').textContent = '0';
+  updateWinner();
+}
+updateWinner();
 }
 function updateWinner() {
   const el = document.getElementById('wtag');
