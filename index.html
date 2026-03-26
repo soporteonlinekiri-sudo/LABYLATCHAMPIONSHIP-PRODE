@@ -344,7 +344,7 @@
 // ──────────────────────────────────────────────
 // CONFIG — Pegá aquí tu URL de Google Apps Script
 // ──────────────────────────────────────────────
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwC8xumeQeRWSSskmVZuNQtMeOOy0e-gUSj5bHB6HZwShe0Zxu0HNkSiew2tpGJBlNPVw/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1RHqug7slSQ3vGGLePygjfC1iEwMbQyXNYFulyW7YuxhiZ6FpDHWWP6Ik76bvaAvNNw/exec';
 
 // ──────────────────────────────────────────────
 // JUGADORES
@@ -478,7 +478,7 @@ async function enviar() {
     btn.disabled=false; btn.textContent='✓ CONFIRMAR APUESTA'; return;
   }
   try {
-    await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) });
     goTo('success');
   } catch(e) { toast('Error al enviar. Intentá de nuevo.'); }
   btn.disabled=false; btn.textContent='✓ CONFIRMAR APUESTA';
